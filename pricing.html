@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MemexOS Pricing</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-primary: #111827;
+            --text-secondary: #6b7280;
+            --accent-blue: #2563eb;
+            --border-color: #e5e7eb;
+            --sidebar-width: 260px;
+            --surface-bg: #f9fafb;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { display: flex; min-height: 100vh; color: var(--text-primary); }
+
+        /* Sidebar Styling identical to index */
+        .sidebar { width: var(--sidebar-width); border-right: 1px solid var(--border-color); padding: 32px 24px; position: fixed; height: 100vh; background: var(--bg-color); }
+        .logo { font-size: 20px; font-weight: 700; display: flex; align-items: center; gap: 12px; margin-bottom: 32px; text-decoration: none; color: var(--text-primary);}
+        .logo-icon { width: 24px; height: 24px; background: var(--text-primary); border-radius: 4px; display: flex; align-items: center; justify-content: center; color: white; }
+        .nav-menu { list-style: none; margin-bottom: 48px; }
+        .nav-menu li { margin-bottom: 12px; }
+        .nav-menu a { font-size: 14px; color: var(--text-secondary); font-weight: 500; text-decoration: none; }
+        .nav-menu a:hover { color: var(--text-primary); }
+        .nav-menu a.active { color: var(--text-primary); font-weight: 600;}
+
+        /* Main Content */
+        .main-content { margin-left: var(--sidebar-width); flex: 1; padding: 64px 8%; max-width: 1200px; animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        h1 { font-size: 48px; font-weight: 600; letter-spacing: -1.5px; margin-bottom: 16px; text-align: center; }
+        .subtitle { font-size: 18px; color: var(--text-secondary); margin-bottom: 64px; text-align: center; }
+
+        .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+        
+        .pricing-card {
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 32px;
+            background: white;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px -8px rgba(0,0,0,0.1);
+        }
+
+        .pricing-card.popular {
+            border: 2px solid var(--accent-blue);
+            position: relative;
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent-blue);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tier-name { font-size: 20px; font-weight: 600; margin-bottom: 8px; }
+        .tier-price { font-size: 48px; font-weight: 600; margin-bottom: 8px; letter-spacing: -1px; }
+        .tier-price span { font-size: 16px; color: var(--text-secondary); font-weight: 400; }
+        .tier-desc { color: var(--text-secondary); font-size: 14px; margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid var(--surface-bg); }
+
+        .feature-list { list-style: none; margin-bottom: 32px; }
+        .feature-list li { display: flex; gap: 12px; font-size: 14px; margin-bottom: 12px; color: #374151; }
+        .feature-list svg { color: var(--accent-blue); flex-shrink: 0; }
+
+        .btn-full {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            border-radius: 6px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .btn-outline { background: white; border: 1px solid var(--border-color); color: var(--text-primary); }
+        .btn-outline:hover { background: var(--surface-bg); }
+        
+        .btn-fill { background: var(--accent-blue); color: white; border: 1px solid var(--accent-blue); }
+        .btn-fill:hover { background: #1d4ed8; }
+
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <a href="/" class="logo">
+            <div class="logo-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+            MemexOS
+        </a>
+        <ul class="nav-menu">
+            <li><a href="/">Home</a></li>
+            <li><a href="/docs">Product</a></li>
+            <li><a href="/blog">Blog</a></li>
+            <li><a href="#">Changelog</a></li>
+            <li><a href="/pricing" class="active">Pricing</a></li>
+            <li><a href="#">Research</a></li>
+            <li><a href="/docs">Docs ↗</a></li>
+            <li><a href="/console">Console ↗</a></li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+        <h1>Transparent pricing for scale.</h1>
+        <p class="subtitle">Start for free, then pay for what you use as your agent scales.</p>
+
+        <div class="pricing-grid">
+            <!-- Free Tier -->
+            <div class="pricing-card">
+                <div class="tier-name">Hacker</div>
+                <div class="tier-price">$0<span>/mo</span></div>
+                <div class="tier-desc">Perfect for testing MemexOS locally and building side projects.</div>
+                
+                <ul class="feature-list">
+                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> 100,000 requests per month</li>
+                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Standard PDF extraction</li>
+                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Local MCP connectivity</li>
+                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Community support</li>
+                </ul>
+                <a href="/console" class="btn-full btn-outline">Start Building</a>
+            </div>
+
+            <!-- Pro Tier -->
+            <div class="pricing-card popular">
+                <div class="popular-badge">Most Popular</div>
+                <div class="tier-name">Pro</div>
+                <div class="tier-price">$20<span>/mo</span></div>
+                <div class="tier-desc">For production applications needing higher rate limits.</div>
+                
+                <ul class="feature-list">
+                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Everything in Hacker</li>
+                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> 5,000,000 requests per month</li>
+                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Claude 3.5 Sonnet Integration</li>
+                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Advanced Graph Visualization</li>
+                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Priority email support</li>
+                </ul>
+                <a href="/console" class="btn-full btn-fill">Upgrade to Pro</a>
+            </div>
+
+            <!-- Enterprise Tier -->
+            <div class="pricing-card">
+                <div class="tier-name">Enterprise</div>
+                <div class="tier-price">Custom</div>
+                <div class="tier-desc">For large organizations requiring bespoke infrastructure.</div>
+                
+                <ul class="feature-list">
+                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Unlimited requests</li>
+                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Dedicated KV cache clusters</li>
+                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Bring your own VPC</li>
+                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> SOC2 Compliance Reports</li>
+                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> 24/7 Slack Connect channel</li>
+                </ul>
+                <a href="https://cal.com/memexos" class="btn-full btn-outline">Contact Sales</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

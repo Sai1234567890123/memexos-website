@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MemexOS Blog</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-primary: #111827;
+            --text-secondary: #6b7280;
+            --accent-blue: #2563eb;
+            --border-color: #e5e7eb;
+            --sidebar-width: 260px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { display: flex; min-height: 100vh; color: var(--text-primary); }
+
+        /* Sidebar Styling */
+        .sidebar { width: var(--sidebar-width); border-right: 1px solid var(--border-color); padding: 32px 24px; position: fixed; height: 100vh; background: var(--bg-color); }
+        .logo { font-size: 20px; font-weight: 700; display: flex; align-items: center; gap: 12px; margin-bottom: 32px; text-decoration: none; color: var(--text-primary);}
+        .logo-icon { width: 24px; height: 24px; background: var(--text-primary); border-radius: 4px; display: flex; align-items: center; justify-content: center; color: white; }
+        .nav-menu { list-style: none; margin-bottom: 48px; }
+        .nav-menu li { margin-bottom: 12px; }
+        .nav-menu a { font-size: 14px; color: var(--text-secondary); font-weight: 500; text-decoration: none; }
+        .nav-menu a:hover { color: var(--text-primary); }
+        .nav-menu a.active { color: var(--text-primary); font-weight: 600;}
+
+        /* Main Content */
+        .main-content { margin-left: var(--sidebar-width); flex: 1; padding: 64px 8%; max-width: 900px; animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        h1 { font-size: 48px; font-weight: 700; letter-spacing: -1.5px; margin-bottom: 48px; }
+
+        .blog-post { border-bottom: 1px solid var(--border-color); padding-bottom: 32px; margin-bottom: 32px; }
+        .blog-post h2 { font-size: 24px; font-weight: 600; margin-bottom: 12px; }
+        .blog-post h2 a { color: var(--text-primary); text-decoration: none; transition: color 0.2s; }
+        .blog-post h2 a:hover { color: var(--accent-blue); }
+        
+        .blog-meta { font-size: 13px; color: var(--text-secondary); margin-bottom: 16px; font-weight: 500; }
+        .blog-excerpt { color: #374151; line-height: 1.6; margin-bottom: 16px; font-size: 15px; }
+        
+        .read-more { font-size: 14px; font-weight: 600; color: var(--accent-blue); text-decoration: none; }
+        .read-more:hover { text-decoration: underline; }
+
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <a href="/" class="logo">
+            <div class="logo-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+            MemexOS
+        </a>
+        <ul class="nav-menu">
+            <li><a href="/">Home</a></li>
+            <li><a href="/docs">Product</a></li>
+            <li><a href="/blog" class="active">Blog</a></li>
+            <li><a href="#">Changelog</a></li>
+            <li><a href="/pricing">Pricing</a></li>
+            <li><a href="#">Research</a></li>
+            <li><a href="/docs">Docs ↗</a></li>
+            <li><a href="/console">Console ↗</a></li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+        <h1>Research & Updates</h1>
+        
+        <div class="blog-post">
+            <h2><a href="#">Introducing MemexOS: The Universal AI Memory Layer</a></h2>
+            <div class="blog-meta">October 8, 2026 • By Founder</div>
+            <p class="blog-excerpt">Today we are emerging from stealth to announce MemexOS. We built the hard infrastructure parts of a scalable memory system so that your agents can continuously learn from unstructured data, completely separating memory from the underlying models.</p>
+            <a href="#" class="read-more">Read the post →</a>
+        </div>
+
+        <div class="blog-post">
+            <h2><a href="#">Why we chose Claude 3.5 Sonnet for Multi-Hop RAG</a></h2>
+            <div class="blog-meta">September 24, 2026 • By Engineering Team</div>
+            <p class="blog-excerpt">When traversing deeply interconnected vector graphs, standard LLMs often hallucinate or lose context. Here's a deep dive into how we leverage Anthropic's long context window and Prompt Caching APIs to achieve a 55.95% resolution rate on SWE-CONTEXTBENCH.</p>
+            <a href="#" class="read-more">Read the post →</a>
+        </div>
+
+        <div class="blog-post">
+            <h2><a href="#">Optimizing KV Cache for real-time memory injection</a></h2>
+            <div class="blog-meta">September 10, 2026 • By Research</div>
+            <p class="blog-excerpt">Speed is everything. Our promise is the best memory for agents: the kind people feel, not just the kind that tops a benchmark. Here is exactly how we brought our end-to-end recall latency down to 248ms.</p>
+            <a href="#" class="read-more">Read the post →</a>
+        </div>
+
+    </main>
+
+</body>
+</html>
