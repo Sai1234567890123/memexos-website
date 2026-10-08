@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MemexOS Documentation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-primary: #111827;
+            --text-secondary: #6b7280;
+            --accent-blue: #2563eb;
+            --border-color: #e5e7eb;
+            --sidebar-width: 260px;
+            --surface-bg: #f9fafb;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Sidebar styling */
+        .sidebar {
+            width: var(--sidebar-width);
+            border-right: 1px solid var(--border-color);
+            padding: 32px 24px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            background: var(--bg-color);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 32px;
+            color: var(--text-primary);
+        }
+
+        .logo-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--text-primary);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .nav-section {
+            margin-bottom: 24px;
+        }
+        
+        .nav-section-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin-bottom: 8px;
+        }
+
+        .nav-menu a {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            display: block;
+            padding: 6px 8px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .nav-menu a:hover, .nav-menu a.active {
+            color: var(--accent-blue);
+            background: #eff6ff;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            padding: 64px 8%;
+            max-width: 900px;
+        }
+
+        h1 {
+            font-size: 36px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 16px;
+        }
+
+        h2 {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 48px 0 16px 0;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+
+        h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 32px 0 12px 0;
+        }
+
+        p {
+            margin-bottom: 16px;
+            color: #374151;
+            font-size: 16px;
+        }
+
+        .code-block {
+            background: #1e293b;
+            color: #f8fafc;
+            padding: 16px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            margin-bottom: 24px;
+            border: 1px solid #334155;
+        }
+
+        .inline-code {
+            background: var(--surface-bg);
+            border: 1px solid var(--border-color);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 13px;
+            color: #ef4444;
+        }
+
+        .note-card {
+            background: #eff6ff;
+            border-left: 4px solid var(--accent-blue);
+            padding: 16px;
+            border-radius: 4px;
+            margin: 24px 0;
+        }
+
+        .note-card p {
+            margin: 0;
+            color: #1e3a8a;
+            font-size: 14px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <a href="index.html" class="logo">
+            <div class="logo-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            </div>
+            MemexOS
+        </a>
+
+        <div class="nav-section">
+            <div class="nav-section-title">Getting Started</div>
+            <ul class="nav-menu">
+                <li><a href="#" class="active">Quickstart</a></li>
+                <li><a href="#">Installation</a></li>
+                <li><a href="#">Authentication</a></li>
+            </ul>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title">Core Concepts</div>
+            <ul class="nav-menu">
+                <li><a href="#">Memory Graph</a></li>
+                <li><a href="#">Ingestion Engine</a></li>
+                <li><a href="#">Claude Orchestration</a></li>
+            </ul>
+        </div>
+
+        <div class="nav-section">
+            <div class="nav-section-title">API Reference</div>
+            <ul class="nav-menu">
+                <li><a href="#">Node.js SDK</a></li>
+                <li><a href="#">REST API</a></li>
+                <li><a href="#">MCP Servers</a></li>
+            </ul>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <h1>Quickstart Guide</h1>
+        <p>Welcome to the MemexOS developer documentation. MemexOS is a universal AI memory layer that turns your unstructured data into a real-time, queryable knowledge graph powered by Claude.</p>
+        
+        <div class="note-card">
+            <p><strong>Note:</strong> You must have a valid API key to use the remote backend. If no key is provided, the SDK will run in local mock mode.</p>
+        </div>
+
+        <h2>Installation</h2>
+        <p>Install the official MemexOS Node.js SDK via NPM:</p>
+        <div class="code-block">
+npm install memexos
+        </div>
+
+        <h2>Initialization</h2>
+        <p>Import the <span class="inline-code">MemexClient</span> and initialize it with your API key. By default, it will look for the <span class="inline-code">MEMEXOS_API_KEY</span> environment variable.</p>
+        
+        <div class="code-block">
+const { MemexClient } = require('memexos');
+
+const memex = new MemexClient({
+  apiKey: process.env.MEMEXOS_API_KEY
+});
+        </div>
+
+        <h2>Ingesting Memory</h2>
+        <p>The core of MemexOS is mapping unstructured data. You can pipe raw text from Notion, browser logs, or chat applications directly into the <span class="inline-code">addMemory</span> endpoint.</p>
+
+        <div class="code-block">
+await memex.addMemory("I had a meeting with John today about the new Claude integration.", {
+    source: "notion",
+    tags: ["meeting", "AI"]
+});
+        </div>
+
+        <h2>Querying the Graph</h2>
+        <p>Once your data is ingested, MemexOS orchestrates Claude 3.5 Sonnet to perform multi-hop RAG across your entire memory graph.</p>
+
+        <div class="code-block">
+const response = await memex.query("What was my meeting about today?");
+
+console.log(response.answer);
+// Output: "Synthesized response based on 1 memory node(s)..."
+        </div>
+
+    </main>
+
+</body>
+</html>
