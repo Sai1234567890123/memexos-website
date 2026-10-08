@@ -1,54 +1,53 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MemexOS | Your Universal AI Memory Layer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <title>MemexOS | Universal AI Memory Layer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #050505;
-            --text-primary: #ffffff;
-            --text-secondary: #a1a1aa;
-            --accent-glow: rgba(139, 92, 246, 0.15); /* Purple glow */
-            --border-color: rgba(255, 255, 255, 0.08);
-            --card-bg: rgba(255, 255, 255, 0.03);
-            --gradient-text: linear-gradient(135deg, #fff 0%, #a1a1aa 100%);
-            --gradient-accent: linear-gradient(135deg, #c084fc 0%, #3b82f6 100%);
+            --bg-color: #ffffff;
+            --text-primary: #111827;
+            --text-secondary: #6b7280;
+            --accent-blue: #2563eb;
+            --accent-blue-hover: #1d4ed8;
+            --border-color: #e5e7eb;
+            --sidebar-width: 260px;
+            --surface-bg: #f9fafb;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-primary);
             line-height: 1.6;
-            overflow-x: hidden;
-            background-image: 
-                radial-gradient(circle at 50% 0%, var(--accent-glow) 0%, transparent 50%),
-                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-            background-size: 100% 100%, 40px 40px, 40px 40px;
-            background-position: top center, center center, center center;
+            display: flex;
+            min-height: 100vh;
         }
 
-        /* Navigation */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 5%;
-            border-bottom: 1px solid var(--border-color);
-            backdrop-filter: blur(12px);
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Sidebar styling */
+        .sidebar {
+            width: var(--sidebar-width);
+            border-right: 1px solid var(--border-color);
+            padding: 32px 24px;
             position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 100;
+            height: 100vh;
+            overflow-y: auto;
+            background: var(--bg-color);
+            display: flex;
+            flex-direction: column;
         }
 
         .logo {
@@ -57,298 +56,577 @@
             letter-spacing: -0.5px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 12px;
+            margin-bottom: 32px;
         }
 
         .logo-icon {
             width: 24px;
             height: 24px;
-            background: var(--gradient-accent);
-            border-radius: 6px;
+            background: var(--text-primary);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
         }
 
-        .nav-links a {
+        .nav-toggles {
+            display: flex;
+            background: var(--surface-bg);
+            border-radius: 6px;
+            padding: 4px;
+            margin-bottom: 32px;
+            border: 1px solid var(--border-color);
+        }
+
+        .nav-toggle {
+            flex: 1;
+            text-align: center;
+            padding: 6px 0;
+            font-size: 13px;
+            font-weight: 500;
+            border-radius: 4px;
+            cursor: pointer;
             color: var(--text-secondary);
-            text-decoration: none;
-            margin-left: 32px;
+        }
+
+        .nav-toggle.active {
+            background: white;
+            color: var(--text-primary);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        .nav-menu {
+            list-style: none;
+            margin-bottom: 48px;
+        }
+
+        .nav-menu li {
+            margin-bottom: 12px;
+        }
+
+        .nav-menu a {
             font-size: 14px;
+            color: var(--text-secondary);
             font-weight: 500;
             transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .nav-links a:hover {
+        .nav-menu a:hover, .nav-menu a.active {
             color: var(--text-primary);
         }
 
-        .btn-primary {
-            background: var(--text-primary);
-            color: var(--bg-color);
-            padding: 8px 16px;
-            border-radius: 6px;
-            text-decoration: none;
+        .nav-menu a.active::before {
+            content: "";
+            display: block;
+            width: 4px;
+            height: 4px;
+            background: var(--accent-blue);
+            border-radius: 50%;
+        }
+
+        .toc-header {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
             font-weight: 600;
-            font-size: 14px;
-            transition: all 0.2s ease;
+            margin-bottom: 16px;
         }
 
-        .btn-primary:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+        .toc-list {
+            list-style: none;
+            border-left: 1px solid var(--border-color);
+            margin-left: 6px;
+            padding-left: 16px;
         }
 
-        /* Hero Section */
-        .hero {
-            padding: 180px 5% 100px;
-            text-align: center;
-            max-width: 1000px;
-            margin: 0 auto;
+        .toc-list li {
+            margin-bottom: 16px;
+            position: relative;
         }
 
-        .pill {
+        .toc-list a {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .toc-list a.active {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .toc-list a.active::before {
+            content: "";
+            position: absolute;
+            left: -17px;
+            top: 8px;
+            width: 2px;
+            height: 12px;
+            background: var(--accent-blue);
+            transform: translateY(-50%);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            padding: 64px 8%;
+            max-width: 1100px;
+        }
+
+        .pill-announcement {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            background: var(--card-bg);
+            gap: 12px;
+            padding: 4px 12px 4px 4px;
             border: 1px solid var(--border-color);
-            padding: 6px 16px;
             border-radius: 100px;
             font-size: 13px;
             font-weight: 500;
             margin-bottom: 32px;
-            backdrop-filter: blur(10px);
         }
 
-        .pill span {
-            background: var(--gradient-accent);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 700;
+        .pill-announcement .badge {
+            background: #10b981;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 600;
         }
 
-        .hero h1 {
-            font-size: 72px;
-            font-weight: 800;
+        h1 {
+            font-size: 48px;
+            font-weight: 600;
+            letter-spacing: -1.5px;
             line-height: 1.1;
             margin-bottom: 24px;
-            letter-spacing: -2px;
-            background: var(--gradient-text);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            max-width: 800px;
         }
 
-        .hero p {
-            font-size: 20px;
+        .subtitle {
+            font-size: 18px;
             color: var(--text-secondary);
-            margin-bottom: 40px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+            margin-bottom: 32px;
         }
 
-        .hero-cta {
+        .cta-group {
             display: flex;
             gap: 16px;
-            justify-content: center;
+            margin-bottom: 24px;
             align-items: center;
         }
 
-        .btn-large {
-            padding: 14px 28px;
-            font-size: 16px;
-            border-radius: 8px;
+        .btn-primary {
+            background: var(--accent-blue);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
         }
 
         .btn-secondary {
-            background: var(--card-bg);
+            background: white;
             color: var(--text-primary);
             border: 1px solid var(--border-color);
-            padding: 14px 28px;
-            border-radius: 8px;
-            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-size: 14px;
             font-weight: 600;
+        }
+
+        .setup-prompt {
+            background: var(--surface-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin-bottom: 32px;
+            font-family: monospace;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #2563eb 0%, #1e3a8a 100%);
+            border-radius: 12px;
+            margin-bottom: 48px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-image::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        /* Article content */
+        .article-text {
             font-size: 16px;
-            transition: all 0.2s ease;
+            color: var(--text-primary);
+            max-width: 700px;
+            margin-bottom: 48px;
         }
 
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.08);
+        .article-text h2 {
+            font-size: 20px;
+            color: var(--accent-blue);
+            margin: 32px 0 16px 0;
+            font-weight: 600;
         }
 
-        /* Bento Grid Features */
-        .bento-section {
-            padding: 40px 5% 100px;
-            max-width: 1200px;
-            margin: 0 auto;
+        .article-text p {
+            margin-bottom: 20px;
+            color: #374151;
         }
 
-        .bento-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(2, 300px);
+        .article-text a {
+            color: var(--accent-blue);
+            text-decoration: underline;
+        }
+
+        /* Diagram Mock */
+        .diagram-container {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 40px;
+            background: white;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+        
+        .diagram-caption {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 64px;
+            max-width: 700px;
+        }
+
+        /* Features */
+        .section-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 32px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 16px;
+            max-width: 700px;
+        }
+
+        .feature-list {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            max-width: 700px;
+            margin-bottom: 64px;
+        }
+
+        .feature-item {
+            display: flex;
             gap: 24px;
         }
 
-        .bento-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 24px;
-            padding: 32px;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            backdrop-filter: blur(10px);
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--accent-blue);
+            border-radius: 12px;
+            flex-shrink: 0;
         }
 
-        .bento-card:hover {
-            border-color: rgba(255, 255, 255, 0.15);
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        /* Grid Spans */
-        .span-2 { grid-column: span 2; }
-        .span-row-2 { grid-row: span 2; }
-
-        .bento-card h3 {
-            font-size: 24px;
+        .feature-text h3 {
+            font-size: 18px;
             font-weight: 600;
-            margin-bottom: 12px;
-            letter-spacing: -0.5px;
+            margin-bottom: 8px;
         }
 
-        .bento-card p {
+        .feature-text p {
             color: var(--text-secondary);
             font-size: 15px;
         }
 
-        /* Mock UI Elements inside Bento */
-        .mock-code {
-            margin-top: auto;
-            background: #000;
+        /* Bento Grid */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            max-width: 800px;
+            margin-bottom: 64px;
+        }
+
+        .bento-card {
             border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 16px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 13px;
-            color: #a1a1aa;
+            border-radius: 8px;
+            padding: 24px;
+            background: white;
         }
 
-        .mock-code span { color: #c084fc; }
-        
-        .mock-graph {
-            position: absolute;
-            bottom: -20px;
-            right: -20px;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, transparent 70%);
-            border-radius: 50%;
+        .bento-card.span-2 {
+            grid-column: span 2;
+        }
+
+        .bento-header {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .metric-large {
+            font-size: 42px;
+            font-weight: 600;
+            letter-spacing: -1px;
+            margin-bottom: 8px;
             display: flex;
-            align-items: center;
-            justify-content: center;
+            align-items: baseline;
+            gap: 4px;
         }
 
-        .mock-node {
-            width: 8px;
-            height: 8px;
-            background: #3b82f6;
-            border-radius: 50%;
-            box-shadow: 0 0 10px #3b82f6;
-            position: relative;
+        .metric-large span {
+            font-size: 18px;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        .metric-sub {
+            color: var(--accent-blue);
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
         }
         
-        .mock-node::after {
-            content: '';
-            position: absolute;
-            width: 60px;
-            height: 1px;
-            background: rgba(59, 130, 246, 0.5);
-            top: 4px;
-            left: 4px;
-            transform: rotate(-45deg);
+        th {
+            text-align: left;
+            color: var(--text-secondary);
+            font-weight: 500;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        td {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--surface-bg);
+            font-weight: 500;
+        }
+
+        .td-metric {
+            font-size: 18px;
+            font-weight: 600;
         }
 
         @media (max-width: 900px) {
-            .bento-grid {
-                grid-template-columns: 1fr;
-                grid-template-rows: auto;
-            }
-            .span-2, .span-row-2 {
-                grid-column: span 1;
-                grid-row: span 1;
-            }
-            .hero h1 { font-size: 48px; }
-            .nav-links { display: none; }
+            .sidebar { display: none; }
+            .main-content { margin-left: 0; padding: 40px 5%; }
+            .bento-grid { grid-template-columns: 1fr; }
+            .bento-card.span-2 { grid-column: span 1; }
         }
     </style>
 </head>
 <body>
 
-    <nav>
+    <aside class="sidebar">
         <div class="logo">
-            <div class="logo-icon"></div>
+            <div class="logo-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            </div>
             MemexOS
         </div>
-        <div class="nav-links">
-            <a href="#">Knowledge Graph</a>
-            <a href="#">Integrations</a>
-            <a href="#">API</a>
-            <a href="#">Pricing</a>
-        </div>
-        <a href="#" class="btn-primary">Get Started</a>
-    </nav>
 
-    <section class="hero">
-        <div class="pill">
-            <span>New</span> MemexOS 2.0 with Universal Context
+        <div class="nav-toggles">
+            <div class="nav-toggle active">Human</div>
+            <div class="nav-toggle">Agent</div>
         </div>
-        <h1>Your mind,<br>backed by AI.</h1>
-        <p>A universal memory and knowledge-graph layer. Connect your bookmarks, notes, tweets, and chats into a single, queryable intelligence engine.</p>
-        <div class="hero-cta">
-            <a href="#" class="btn-primary btn-large">Start for free</a>
-            <a href="#" class="btn-secondary">Read the documentation</a>
-        </div>
-    </section>
 
-    <section class="bento-section">
+        <ul class="nav-menu">
+            <li><a href="#" class="active">Home</a></li>
+            <li><a href="#">Product</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Changelog</a></li>
+            <li><a href="#">Pricing</a></li>
+            <li><a href="#">Research</a></li>
+            <li><a href="#">Docs ↗</a></li>
+            <li><a href="#">Console ↗</a></li>
+        </ul>
+
+        <div class="toc-header">ON THIS PAGE</div>
+        <ul class="toc-list">
+            <li><a href="#mission" class="active">Mission</a></li>
+            <li><a href="#what-we-do">What we do</a></li>
+            <li><a href="#in-production">In production</a></li>
+            <li><a href="#writing">Writing</a></li>
+            <li><a href="#careers">Careers</a></li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+        <div class="pill-announcement">
+            <span class="badge">●</span>
+            Introducing MemexOS <span style="color:var(--text-secondary)">Read the post ↗</span>
+        </div>
+
+        <h1>MemexOS is building the default engine for memory and continual learning for agents.</h1>
+        <p class="subtitle">Available through our API, plugins, and MCP.</p>
+
+        <div class="cta-group">
+            <a href="#" class="btn-primary">Build with MemexOS</a>
+            <a href="#" class="btn-secondary">Talk to sales ↗</a>
+        </div>
+
+        <div class="setup-prompt">
+            <span>COPY SETUP PROMPT</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+        </div>
+
+        <div class="hero-image"></div>
+
+        <div class="article-text" id="mission">
+            <p>The path to useful AI is to scale <a href="#">in-context continuous learning</a> that works with <strong>any model, any harness</strong>, and for all the varieties of use cases. As open-source model adoption grows and the world becomes even more <a href="#">multi-model</a>, learning and memory should be separated from the model providers and be highly interoperable (hence in-context!).</p>
+
+            <h2>Intelligence is no longer a constraint. ↗</h2>
+            <p>Pre-training and post-training, scaling on data and compute, will continue to push models' intelligence, but will not enable them to learn and improve in real time.</p>
+            <p>We build all the hard infrastructure parts of a scalable memory system, with <a href="#">dense, interconnected, growing learnings</a>, and an understanding of time.</p>
+            <p>Our model <strong>learner-1</strong> helps any model continuously improve by extracting and dreaming on the context of any user, task, or tenant, and putting it on our vector-graph database. This is then brought to the model by injecting tokens into its context in real time.</p>
+        </div>
+
+        <div class="diagram-container">
+            <img src="https://via.placeholder.com/800x300/f8fafc/cbd5e1?text=MemexOS+Graph+Architecture" alt="Architecture Diagram" style="max-width:100%; border-radius: 4px;">
+        </div>
+        <p class="diagram-caption">Figure 1. Raw data enters MemexOS. learner-1 updates, merges, infers and forgets against the memory db, and the result is injected into your agent's context.</p>
+
+        <h2 class="section-title" id="what-we-do">What we do</h2>
+        <div class="feature-list">
+            <div class="feature-item">
+                <div class="feature-icon" style="background: radial-gradient(circle at top left, #3b82f6, #1d4ed8);"></div>
+                <div class="feature-text">
+                    <h3>Memory that keeps learning.</h3>
+                    <p>learner-1 extracts and dreams on the context of every user, task, and tenant, stores it in a vector-graph database, and brings it back to the model by injecting tokens into its context in real time.</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon" style="background: radial-gradient(circle at top left, #2563eb, #1e40af);"></div>
+                <div class="feature-text">
+                    <h3>Any model, any harness.</h3>
+                    <p>Learning and memory live outside the model providers, so they carry across models and harnesses and stay interoperable, in context, and yours.</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon" style="background: radial-gradient(circle at top left, #1d4ed8, #1e3a8a);"></div>
+                <div class="feature-text">
+                    <h3>The hard infrastructure, done.</h3>
+                    <p>Dense, interconnected, growing learnings with an understanding of time, already serving 100k+ organizations and over a trillion tokens a month.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="article-text" style="margin-top: -32px;">
+            <p>Scale and Enterprise include advanced document extraction for PDFs, with OCR and descriptions of figures and diagrams. Free, Pro and Max keep standard PDF extraction. <a href="#">Explore document support.</a></p>
+            <p style="margin-top: 24px; font-weight: 600;">Read more about the specifics ↗</p>
+        </div>
+
+        <h2 class="section-title" id="in-production" style="margin-top: 64px;">IN PRODUCTION<br><span style="font-weight:400; color:var(--text-secondary); font-size:20px;">Our <strong>promise</strong> is the best memory for agents: the kind people <strong>feel</strong>, not just the kind that tops a benchmark.</span></h2>
+
         <div class="bento-grid">
-            
-            <div class="bento-card span-2">
-                <h3>Universal Integrations</h3>
-                <p>Ingest unstructured data from ChatGPT, Claude, Twitter, Notion, and Chrome bookmarks automatically.</p>
-                <div class="mock-code">
-                    <span>import</span> { MemexClient } <span>from</span> '@memexos/sdk';<br><br>
-                    const memex = new MemexClient({ api_key });<br>
-                    await memex.ingest.chromeBookmarks();<br>
-                    await memex.ingest.twitterLikes();
+            <div class="bento-card">
+                <div class="bento-header">Recall latency</div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>SERVER</th>
+                            <th>END TO END</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>SEARCH</td>
+                            <td class="td-metric">187<span style="font-size:12px; font-weight:400; color:var(--text-secondary);">ms</span></td>
+                            <td class="td-metric">356<span style="font-size:12px; font-weight:400; color:var(--text-secondary);">ms</span></td>
+                        </tr>
+                        <tr>
+                            <td>PROFILE</td>
+                            <td class="td-metric">166<span style="font-size:12px; font-weight:400; color:var(--text-secondary);">ms</span></td>
+                            <td class="td-metric">248<span style="font-size:12px; font-weight:400; color:var(--text-secondary);">ms</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="bento-card span-2" style="grid-column: 2; grid-row: 1 / span 2;">
+                <div class="bento-header">Independent benchmarks</div>
+                <p style="font-size:15px; margin-bottom:16px;">SWE-CONTEXTBENCH, FEBRUARY 2026</p>
+                <p style="font-size:16px; margin-bottom:24px; color:#374151;">"MemexOS performs best overall, achieving FAIL_TO_PASS test rate of <strong>55.95%</strong> and the highest resolution rate of <strong>30.30%</strong>."</p>
+                <a href="#" style="font-size:13px; font-weight:600; color:var(--text-primary);">Read the paper ↗</a>
+                
+                <hr style="border:none; border-top:1px solid var(--border-color); margin: 32px 0;">
+
+                <div class="bento-header">Public benchmarks</div>
+                <div class="metric-large">#1</div>
+                <a href="#" style="font-size:13px; font-weight:600; color:var(--text-primary);">See the research ↗</a>
+            </div>
+
+            <div class="bento-card">
+                <div class="bento-header">Tokens processed</div>
+                <div class="metric-large">1T+</div>
+                <div style="height: 60px; display:flex; align-items:flex-end; gap:4px; margin-top: 16px;">
+                    <!-- Simple CSS bar chart -->
+                    <div style="flex:1; background:var(--accent-blue); height:30%; opacity:0.8;"></div>
+                    <div style="flex:1; background:var(--accent-blue); height:20%; opacity:0.8;"></div>
+                    <div style="flex:1; background:var(--accent-blue); height:50%; opacity:0.8;"></div>
+                    <div style="flex:1; background:var(--accent-blue); height:70%; opacity:0.8;"></div>
+                    <div style="flex:1; background:var(--accent-blue); height:40%; opacity:0.8;"></div>
+                    <div style="flex:1; background:var(--accent-blue); height:90%; opacity:1;"></div>
+                    <div style="flex:1; background:var(--accent-blue); height:60%; opacity:0.8;"></div>
+                    <div style="flex:1; background:var(--accent-blue); height:40%; opacity:0.8;"></div>
                 </div>
             </div>
 
             <div class="bento-card">
-                <h3>Knowledge Graph</h3>
-                <p>Every piece of data is vectorized and linked semantically, creating a beautiful graph of your thoughts.</p>
-                <div class="mock-graph">
-                    <div class="mock-node"></div>
-                </div>
-            </div>
-
-            <div class="bento-card">
-                <h3>Semantic Search</h3>
-                <p>Stop relying on exact keywords. Search your memory using natural language and concepts.</p>
+                <div class="bento-header">Organizations</div>
+                <div class="metric-large">100k+</div>
             </div>
 
             <div class="bento-card span-2">
-                <h3>LLM Agnostic</h3>
-                <p>Chat with your knowledge graph using any model. We support Claude 3.5 Sonnet, GPT-4o, and Gemini 1.5 Pro natively.</p>
-                <div style="margin-top: auto; display: flex; gap: 12px;">
-                    <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 8px; border: 1px solid var(--border-color); flex: 1;">Claude</div>
-                    <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 8px; border: 1px solid var(--border-color); flex: 1;">OpenAI</div>
-                    <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 8px; border: 1px solid var(--border-color); flex: 1;">Gemini</div>
+                <div class="bento-header">Our benchmarks</div>
+                <div style="display:flex; gap:64px; margin-bottom: 32px;">
+                    <div>
+                        <div style="font-size:11px; color:var(--text-secondary); margin-bottom:4px; text-transform:uppercase;">Cost per question</div>
+                        <div class="metric-large">$7.79</div>
+                        <div class="metric-sub">64% cheaper</div>
+                    </div>
+                    <div>
+                        <div style="font-size:11px; color:var(--text-secondary); margin-bottom:4px; text-transform:uppercase;">Questions answered</div>
+                        <div class="metric-large">81<span>%</span></div>
+                        <div class="metric-sub">up from 69%</div>
+                    </div>
+                </div>
+                <img src="https://via.placeholder.com/700x300/ffffff/cbd5e1?text=Performance+Chart" alt="Chart" style="width:100%;">
+                <div style="margin-top:16px;">
+                    <a href="#" style="font-size:13px; font-weight:600; color:var(--text-primary);">The research runs ↗</a>
                 </div>
             </div>
-
         </div>
-    </section>
+
+    </main>
 
 </body>
 </html>
