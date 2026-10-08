@@ -7,19 +7,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #ffffff;
-            --text-primary: #111827;
-            --text-secondary: #6b7280;
-            --accent-blue: #2563eb;
-            --border-color: #e5e7eb;
+            --bg-color: #08090d;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-blue: #f59e0b;
+            --border-color: rgba(255,255,255,0.08);
             --sidebar-width: 260px;
-            --surface-bg: #f9fafb;
+            --surface-bg: #0e121a;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         body { display: flex; min-height: 100vh; color: var(--text-primary); }
 
         /* Sidebar Styling identical to index */
-        .sidebar { width: var(--sidebar-width); border-right: 1px solid var(--border-color); padding: 32px 24px; position: fixed; height: 100vh; background: var(--bg-color); }
+        .sidebar { width: var(--sidebar-width); border-right: 1px solid var(--border-color); padding: 32px 24px; position: fixed; height: 100vh; background: #08090d; color: #f8fafc; }
         .logo { font-size: 20px; font-weight: 700; display: flex; align-items: center; gap: 12px; margin-bottom: 32px; text-decoration: none; color: var(--text-primary);}
         .logo-icon { width: 24px; height: 24px; background: var(--text-primary); border-radius: 4px; display: flex; align-items: center; justify-content: center; color: white; }
         .nav-menu { list-style: none; margin-bottom: 48px; }
@@ -41,7 +41,7 @@
             border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 32px;
-            background: white;
+            background: #0e121a;
             transition: transform 0.2s, box-shadow 0.2s;
         }
         
@@ -147,7 +147,7 @@
                 <ul class="feature-list">
                     <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Everything in Hacker</li>
                     <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> 5,000,000 requests per month</li>
-                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Claude 3.5 Sonnet Integration</li>
+                    <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Claude 5.5 Haiku & Fable 5.1 Integration</li>
                     <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Advanced Graph Visualization</li>
                     <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Priority email support</li>
                 </ul>
@@ -167,7 +167,7 @@
                     <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> SOC2 Compliance Reports</li>
                     <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> 24/7 Slack Connect channel</li>
                 </ul>
-                <a href="https://cal.com/memexos" class="btn-full btn-outline">Contact Sales</a>
+                <a href="mailto:dharmanaprasannasai@memexos.app" class="btn-full btn-outline">Contact Sales</a>
             </div>
         </div>
     </main>

@@ -7,11 +7,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #ffffff;
-            --text-primary: #111827;
-            --text-secondary: #6b7280;
-            --accent-blue: #2563eb;
-            --border-color: #e5e7eb;
+            --bg-color: #08090d;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-blue: #f59e0b;
+            --border-color: rgba(255,255,255,0.08);
             --sidebar-width: 260px;
             --surface-bg: #f9fafb;
         }
@@ -44,7 +44,7 @@
             position: fixed;
             height: 100vh;
             overflow-y: auto;
-            background: var(--bg-color);
+            background: #08090d; color: #f8fafc;
             display: flex;
             flex-direction: column;
         }
@@ -137,7 +137,7 @@
 
         p {
             margin-bottom: 16px;
-            color: #374151;
+            color: #cbd5e1;
             font-size: 16px;
         }
 
@@ -253,7 +253,7 @@ await memex.addMemory("I had a meeting with John today about the new Claude inte
         </div>
 
         <h2>Querying the Graph</h2>
-        <p>Once your data is ingested, MemexOS orchestrates Claude 3.5 Sonnet to perform multi-hop RAG across your entire memory graph.</p>
+        <p>Once your data is ingested, MemexOS orchestrates Claude 5.5 Haiku and Claude Fable 5.1 to perform multi-hop RAG across your entire memory graph.</p>
 
         <div class="code-block">
 const response = await memex.query("What was my meeting about today?");

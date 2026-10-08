@@ -7,18 +7,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #ffffff;
-            --text-primary: #111827;
-            --text-secondary: #6b7280;
-            --accent-blue: #2563eb;
-            --border-color: #e5e7eb;
+            --bg-color: #08090d;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-blue: #f59e0b;
+            --border-color: rgba(255,255,255,0.08);
             --sidebar-width: 260px;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         body { display: flex; min-height: 100vh; color: var(--text-primary); }
 
         /* Sidebar Styling */
-        .sidebar { width: var(--sidebar-width); border-right: 1px solid var(--border-color); padding: 32px 24px; position: fixed; height: 100vh; background: var(--bg-color); }
+        .sidebar { width: var(--sidebar-width); border-right: 1px solid var(--border-color); padding: 32px 24px; position: fixed; height: 100vh; background: #08090d; color: #f8fafc; }
         .logo { font-size: 20px; font-weight: 700; display: flex; align-items: center; gap: 12px; margin-bottom: 32px; text-decoration: none; color: var(--text-primary);}
         .logo-icon { width: 24px; height: 24px; background: var(--text-primary); border-radius: 4px; display: flex; align-items: center; justify-content: center; color: white; }
         .nav-menu { list-style: none; margin-bottom: 48px; }
@@ -39,7 +39,7 @@
         .blog-post h2 a:hover { color: var(--accent-blue); }
         
         .blog-meta { font-size: 13px; color: var(--text-secondary); margin-bottom: 16px; font-weight: 500; }
-        .blog-excerpt { color: #374151; line-height: 1.6; margin-bottom: 16px; font-size: 15px; }
+        .blog-excerpt { color: #94a3b8; line-height: 1.6; margin-bottom: 16px; font-size: 15px; }
         
         .read-more { font-size: 14px; font-weight: 600; color: var(--accent-blue); text-decoration: none; }
         .read-more:hover { text-decoration: underline; }
@@ -76,7 +76,7 @@
         </div>
 
         <div class="blog-post">
-            <h2><a href="#">Why we chose Claude 3.5 Sonnet for Multi-Hop RAG</a></h2>
+            <h2><a href="#">Why we chose Claude Fable 5.1 & 5.5 Haiku for Multi-Hop RAG</a></h2>
             <div class="blog-meta">September 24, 2026 • By Engineering Team</div>
             <p class="blog-excerpt">When traversing deeply interconnected vector graphs, standard LLMs often hallucinate or lose context. Here's a deep dive into how we leverage Anthropic's long context window and Prompt Caching APIs to achieve a 55.95% resolution rate on SWE-CONTEXTBENCH.</p>
             <a href="#" class="read-more">Read the post →</a>
