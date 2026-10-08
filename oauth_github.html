@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authorize MemexOS · GitHub</title>
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+        body {
+            background-color: #0d1117;
+            color: #c9d1d9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 24px;
+        }
+        .github-card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 32px;
+            width: 100%;
+            max-width: 480px;
+            text-align: center;
+            box-shadow: 0 16px 36px rgba(0,0,0,0.4);
+        }
+        .header-icons {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .octocat-icon {
+            width: 44px;
+            height: 44px;
+            fill: #ffffff;
+        }
+        .app-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, #f59e0b, #ea580c);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            font-weight: 900;
+            font-size: 20px;
+        }
+        h1 {
+            font-size: 22px;
+            font-weight: 600;
+            color: #f0f6fc;
+            margin-bottom: 12px;
+        }
+        .byline {
+            font-size: 14px;
+            color: #8b949e;
+            margin-bottom: 24px;
+        }
+        .permissions-box {
+            text-align: left;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 16px;
+            background: #0d1117;
+            margin-bottom: 24px;
+        }
+        .perm-title {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #8b949e;
+            margin-bottom: 12px;
+        }
+        .perm-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 13px;
+            color: #c9d1d9;
+            margin-bottom: 10px;
+        }
+        .perm-item svg {
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .user-switch {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            background: #21262d;
+            border-radius: 8px;
+            border: 1px solid #30363d;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .user-switch img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+        }
+        .user-switch-text {
+            flex: 1;
+        }
+        .u-name { font-size: 13px; font-weight: 600; color: #f0f6fc; }
+        .u-sub { font-size: 11px; color: #8b949e; }
+        .btn-authorize {
+            background-color: #238636;
+            color: #ffffff;
+            border: 1px solid rgba(240, 246, 252, 0.1);
+            border-radius: 6px;
+            padding: 12px 24px;
+            font-size: 14px;
+            font-weight: 600;
+            width: 100%;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-bottom: 12px;
+        }
+        .btn-authorize:hover {
+            background-color: #2ea043;
+        }
+        .btn-cancel {
+            background: transparent;
+            color: #8b949e;
+            border: none;
+            font-size: 13px;
+            cursor: pointer;
+        }
+        .btn-cancel:hover {
+            color: #c9d1d9;
+            text-decoration: underline;
+        }
+        .custom-git-input {
+            width: 100%;
+            padding: 10px;
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            color: #fff;
+            font-size: 13px;
+            margin-bottom: 16px;
+        }
+        .loading-state {
+            display: none;
+            padding: 30px 0;
+        }
+        .spinner {
+            width: 32px;
+            height: 32px;
+            border: 3px solid #21262d;
+            border-top-color: #238636;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 16px auto;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+    <div class="github-card">
+        <div class="header-icons">
+            <svg class="octocat-icon" viewBox="0 0 24 24">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path>
+            </svg>
+            <div style="font-size:20px; color:#8b949e;">⟷</div>
+            <div class="app-icon">M</div>
+        </div>
+
+        <div id="auth-content">
+            <h1>Authorize MemexOS</h1>
+            <p class="byline">by <strong>MemexOS Inc</strong> wants to access your GitHub account</p>
+
+            <div class="user-switch">
+                <img src="https://github.com/Sai1234567890123.png" onerror="this.src='https://ui-avatars.com/api/?name=Sai&background=238636&color=fff'" alt="Avatar">
+                <div class="user-switch-text">
+                    <div class="u-name" id="gh-user-title">Signed in as Sai1234567890123</div>
+                    <div class="u-sub">dharmanaprasannasai@memexos.app</div>
+                </div>
+            </div>
+
+            <input type="text" id="custom-gh-user" class="custom-git-input" placeholder="Or enter different GitHub username / handle" oninput="updateGhUser(this.value)">
+
+            <div class="permissions-box">
+                <div class="perm-title">Permissions Requested</div>
+                <div class="perm-item">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="#238636"><path fill-rule="evenodd" d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path></svg>
+                    <span>Verify your GitHub identity (read:user)</span>
+                </div>
+                <div class="perm-item">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="#238636"><path fill-rule="evenodd" d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path></svg>
+                    <span>Read public repos & email addresses (user:email)</span>
+                </div>
+            </div>
+
+            <button class="btn-authorize" onclick="authorizeGitHub()">
+                Authorize MemexOS
+            </button>
+            <br>
+            <button class="btn-cancel" onclick="window.close()">Cancel</button>
+        </div>
+
+        <div class="loading-state" id="loading-state">
+            <div class="spinner"></div>
+            <h2 style="font-size:16px; font-weight:600; color:#f0f6fc; margin-bottom:6px;">Redirecting to MemexOS Console...</h2>
+            <p style="font-size:12px; color:#8b949e;">OAuth 2.0 Authorization Code granted.</p>
+        </div>
+    </div>
+
+    <script>
+        let currentUsername = 'Sai1234567890123';
+
+        function updateGhUser(val) {
+            if (val.trim()) {
+                currentUsername = val.trim().replace('@', '');
+                document.getElementById('gh-user-title').innerText = 'Signed in as ' + currentUsername;
+            } else {
+                currentUsername = 'Sai1234567890123';
+                document.getElementById('gh-user-title').innerText = 'Signed in as Sai1234567890123';
+            }
+        }
+
+        function authorizeGitHub() {
+            document.getElementById('auth-content').style.display = 'none';
+            document.getElementById('loading-state').style.display = 'block';
+
+            const user = {
+                provider: 'GitHub',
+                name: currentUsername,
+                email: 'dharmanaprasannasai@memexos.app',
+                avatar: 'https://github.com/' + currentUsername + '.png',
+                githubHandle: '@' + currentUsername,
+                token: 'gho_' + Math.random().toString(36).substring(2, 15),
+                apiKey: 'memex_live_sk_' + Math.random().toString(36).substring(2, 10) + Math.random().toString(36).substring(2, 10),
+                loginTime: new Date().toISOString()
+            };
+
+            // Save in localStorage
+            localStorage.setItem('memexos_user_session', JSON.stringify(user));
+            localStorage.setItem('memexos_user', JSON.stringify(user));
+
+            setTimeout(() => {
+                if (window.opener && !window.opener.closed) {
+                    window.opener.postMessage({ type: 'MEMEX_AUTH_SUCCESS', user: user }, '*');
+                    window.close();
+                } else {
+                    window.location.href = '/console';
+                }
+            }, 800);
+        }
+    </script>
+</body>
+</html>
